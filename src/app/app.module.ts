@@ -26,6 +26,7 @@ import { DashboardVendedorComponent } from './views/vendedor/dashboard-vendedor/
 import { TopbarAdminComponent } from './views/admin/topbar-admin/topbar-admin.component';
 import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard-admin.component';
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
