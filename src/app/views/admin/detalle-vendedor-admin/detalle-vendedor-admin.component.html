@@ -1,1 +1,55 @@
-<p>detalle-vendedor-admin works!</p>
+<h1>Detalles</h1>
+<h2>Nombre</h2>
+<h3>{{vendedor?.slpName}}</h3>
+<h2>Codigo</h2>
+<h3>{{vendedor?.slpCode}}</h3>
+<h2>Grupo</h2>
+<h3>{{vendedor?.groupCode}}</h3>
+<h2>Correo electronico</h2>
+<h3>{{vendedor?.email}}</h3>
+<h2>Telefono</h2>
+<h3>{{vendedor?.telephone}}</h3>
+
+<button (click)="listarClientesVendedor()">Obtener Clientes</button>
+<h2>Tabla Clientes</h2>
+<table>
+    <thead>
+        <th>#</th>
+        <th>Codigo</th>
+        <th>Nombre</th>
+        <th>Balance</th>
+        <th>Detalles</th>
+    </thead>
+    <tbody *ngFor="let cliente of listaClientes">
+        <td>{{cliente.idCliente}}</td>
+        <td>{{cliente.cardCode}}</td>
+        <td>{{cliente.cardName}}</td>
+        <td>{{cliente.balance}}</td>
+        <td><a [routerLink]="'/admin/clientes'+cliente.idCliente">Detalles</a></td>
+    </tbody>
+</table>
+
+<button (click)="listarOrdenesVendedor()">Obtener Ordenes</button>
+<h2>Tabla Ordenes</h2>
+<table>
+    <thead>
+        <th>#</th>
+        <th>Codigo</th>
+        <th>Entrada</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Total</th>
+        <th>Estatus</th>   
+        <th>Accion</th> 
+    </thead>
+    <tbody *ngFor="let orden of listaOrdenes">
+        <td>{{orden.idOrdenVenta}}</td>
+        <td>{{orden.docNum}}</td>
+        <td>{{orden.docEntry}}</td>
+        <td>{{orden.docDate}}</td>
+        <td>{{orden.cardCode}}</td>
+        <td>{{orden.docTotal}}</td>
+        <td>{{orden.u_estatusOV}}</td>
+        <td><a [routerLink]="'/admin/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
+    </tbody>
+</table>

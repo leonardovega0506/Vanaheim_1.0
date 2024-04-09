@@ -1,1 +1,19 @@
-<p>listar-vendedor-admin works!</p>
+<input type="text" name="slpCode" placeholder="codigo" [(ngModel)]="slpCode">
+<button (click)="buscarVendedorBySlpCode()">Buscar</button>
+<br>
+<input type="text" name="slpName" placeholder="nombre" (input)="listarVendedoresByCardName()" [(ngModel)]="slpName">
+
+<table>
+    <thead>
+       <th>#</th>
+       <th>Codigo</th>
+       <th>Nombre</th>
+       <th>Detalles</th> 
+    </thead>
+    <tbody *ngFor="let vendedor of listaVendedores">
+        <td>{{vendedor.idVendedor}}</td>
+        <td>{{vendedor.slpCode}}</td>
+        <td>{{vendedor.slpName}}</td>
+        <td><a [routerLink]="'/admin/vendedores/'+vendedor.idVendedor">Detalles</a></td>
+    </tbody>
+</table>
