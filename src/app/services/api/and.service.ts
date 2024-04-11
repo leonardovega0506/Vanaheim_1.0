@@ -75,7 +75,7 @@ export class AndService {
   }
 
   public obtenerImageOrdenRequest(name){
-    return this.http.get(this.baseAnd+"/orden/sap/imagen/?imageName="+name);
+    return this.http.get(this.baseAnd+"/orden/sap/imagen/?imageName="+name, {responseType: 'blob'});
   }
 
   public liberarOrdenReques(idOrdenRequest){

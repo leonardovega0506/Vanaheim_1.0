@@ -28,6 +28,9 @@ import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { DashboardOrdenesAdminComponent } from './views/admin/dashboard-ordenes-admin/dashboard-ordenes-admin.component';
+import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
+import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     TopbarOrdenVendedorComponent,
     DashboardVendedorComponent,
     TopbarAdminComponent,
-    DashboardAdminComponent
+    DashboardAdminComponent,
+    DashboardOrdenesAdminComponent,
+    ListarOrdenRequestAdminComponent,
+    DetalleOrdenRequestAdminComponent
   ],
   imports: [
     BrowserModule,
