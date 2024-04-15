@@ -32,6 +32,8 @@ import { DashboardOrdenesAdminComponent } from './views/admin/dashboard-ordenes-
 import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
 import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
 import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { authInterceptorProviders } from './services/util/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +71,8 @@ import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

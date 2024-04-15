@@ -11,6 +11,7 @@ import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-req
 import { DetalleOrdenAdminComponent } from './views/admin/detalle-orden-admin/detalle-orden-admin.component';
 import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
 import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
+import { LoginVanaheimComponent } from './views/login-vanaheim/login-vanaheim.component';
 
 const routes: Routes = [
   {path:'admin',component:DashboardAdminComponent,children:[
@@ -23,7 +24,8 @@ const routes: Routes = [
     {path:'ordenes/request/:id',component:DetalleOrdenRequestAdminComponent},
     {path:'vendedores',component:ListarVendedorAdminComponent},
     {path:'vendedores/:id',component:DetalleVendedorAdminComponent}
-  ]}
+  ]},
+  {path:'',component:LoginVanaheimComponent}
 ];
 
 @NgModule({

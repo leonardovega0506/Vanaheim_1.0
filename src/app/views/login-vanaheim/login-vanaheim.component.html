@@ -1,1 +1,5 @@
-<p>login-vanaheim works!</p>
+<input type="text" name="userName" placeholder="Username" [(ngModel)]="loginForm.username">
+<br>
+<input type="password" name="password" placeholder="password" [(ngModel)]="loginForm.password">
+<br>
+<button (click)="login()">Ingresar</button>
