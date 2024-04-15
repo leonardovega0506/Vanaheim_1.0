@@ -14,6 +14,7 @@
         <th>Total</th>
         <th>Estatus</th>
         <th>Accion</th>
+        <th>Accion</th>
     </thead>
     <tbody *ngFor="let orden of listaOrdenes">
         <td>{{orden.docEntry}}</td>
@@ -22,5 +23,6 @@
         <td>{{orden.docTotal}}</td>
         <td>{{orden.u_estatusOV}}</td>
         <td><a [routerLink]="'/admin/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
+        <td><button (click)="cargarPedido(orden.docNum)">Cargar pedido</button></td>
     </tbody>
 </table>

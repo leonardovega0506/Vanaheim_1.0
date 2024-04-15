@@ -31,6 +31,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DashboardOrdenesAdminComponent } from './views/admin/dashboard-ordenes-admin/dashboard-ordenes-admin.component';
 import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
 import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
+import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-r
     DashboardAdminComponent,
     DashboardOrdenesAdminComponent,
     ListarOrdenRequestAdminComponent,
-    DetalleOrdenRequestAdminComponent
+    DetalleOrdenRequestAdminComponent,
+    SubirOrdenAdminComponent
   ],
   imports: [
     BrowserModule,

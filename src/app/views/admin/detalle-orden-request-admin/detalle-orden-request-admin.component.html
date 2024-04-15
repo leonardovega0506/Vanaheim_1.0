@@ -1,1 +1,20 @@
-<p>detalle-orden-request-admin works!</p>
+<h1>Detalles</h1>
+<h2>Codigo</h2>
+<h3>{{ordenVenta?.docNum}}</h3>
+<h2>Fecha</h2>
+<h3>{{ordenVenta?.docDate}}</h3>
+<h2>Total</h2>
+<h3>{{ordenVenta?.docTotal}}</h3>
+<h2>Metodo</h2>
+<h3>{{ordenVenta?.metodoPago}}</h3>
+<h2>Estatus</h2>
+<h3>{{ordenVenta?.estatusOrden}}</h3>
+<h2>Cliente</h2>
+<h3>{{ordenVenta?.cardName}}</h3>
+<h2>Vendedor</h2>
+<h3>{{ordenVenta?.slpName}}</h3>
+<h2>Banco</h2>
+<h3>{{ordenVenta?.bancoNombre}}</h3>
+<h2>Comprobante</h2>
+<img [src]="imagen">
+<button *ngIf="ordenVenta?.estatusOrden != 'Liberado'">Liberar</button>

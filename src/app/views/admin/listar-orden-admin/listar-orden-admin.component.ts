@@ -47,6 +47,10 @@ export class ListarOrdenAdminComponent implements OnInit{
     );
   }
 
+  cargarPedido(docNum){
+    this.router.navigate(['/admin/ordenes/request/add'],{ queryParams: { parametro: docNum } });
+  }
+
   listarOrdenes(page: number, cantidad: any, orderBy: string, sortDir){
     this.and.obtenerOrdenes(orderBy,page,cantidad,sortDir).subscribe(
       (data:any)=>{

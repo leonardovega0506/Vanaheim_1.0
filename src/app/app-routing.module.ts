@@ -10,6 +10,7 @@ import { ListarOrdenAdminComponent } from './views/admin/listar-orden-admin/list
 import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
 import { DetalleOrdenAdminComponent } from './views/admin/detalle-orden-admin/detalle-orden-admin.component';
 import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
+import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
 
 const routes: Routes = [
   {path:'admin',component:DashboardAdminComponent,children:[
@@ -18,6 +19,7 @@ const routes: Routes = [
     {path:'ordenes/sap',component:ListarOrdenAdminComponent},
     {path:'ordenes/sap/:id',component:DetalleOrdenAdminComponent},
     {path:'ordenes/request',component:ListarOrdenRequestAdminComponent},
+    {path:'ordenes/request/add',component:SubirOrdenAdminComponent},
     {path:'ordenes/request/:id',component:DetalleOrdenRequestAdminComponent},
     {path:'vendedores',component:ListarVendedorAdminComponent},
     {path:'vendedores/:id',component:DetalleVendedorAdminComponent}

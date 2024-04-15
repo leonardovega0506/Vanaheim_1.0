@@ -1,5 +1,7 @@
 <input type="text" name="docNum" [(ngModel)]="docNum" placeholder="Numero de orden">
 <button (click)="buscarByDocNum()">Buscar</button>
+<br>
+<button [routerLink]="'/admin/ordenes/request/add'">Subir orden</button>
 <table>
     <thead>
         <th>#</th>

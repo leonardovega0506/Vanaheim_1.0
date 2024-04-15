@@ -1,0 +1,31 @@
+<h1>Subir orden</h1>
+
+<input type="text" placeholder="Numero orden" name="docNum" [(ngModel)]="docNum">
+<button (click)="buscarOrdenByDocNum()">Buscar</button>
+<input type="hidden" [(ngModel)]="ordenRequest.docNum">
+<br>
+<input type="text" name="total" [(ngModel)]="ordenRequest.docTotal" value="{{ordenTraida?.docTotal}}">
+<br>
+<input type="text" name="metodoPago" [(ngModel)]="ordenRequest.metodoPago" value="{{ordenTraida?.peyMethod}}">
+<br>
+<input type="text" name="fechaOrden" [(ngModel)]="ordenRequest.docDate" value="{{ordenTraida?.docDate}}">
+<br>
+<input type="text" name="cardCode" [(ngModel)]="ordenRequest.cardCode" value="{{ordenTraida?.cardCode}}">
+<br>
+<input type="text" name="slpCode" [(ngModel)]="ordenRequest.slpCode" value="{{ordenTraida?.slpCode}}">
+<br>
+<select name="bancoNombre" [(ngModel)]="ordenRequest.bancoNombre" (change)="onBancoSeleccionado($event)">
+    <option *ngFor="let banco of listaBancos" [value]="banco.acctName">
+        {{banco.acctName}}
+    </option>
+</select>
+<br>
+<input type="text" name="bancoCodigo" [(ngModel)]="ordenRequest.bancoCodigo" value="{{bancoCodigo}}">
+<br>
+<input type="file" name="imagen" (change)="onFileSelected($event)">
+<br>
+<img [src]="imagenURL" *ngIf="imagenURL" width="100" height="100">
+<br>
+<textarea name="comentarios" id="" cols="30" rows="10" [(ngModel)]="ordenRequest.comentarios"></textarea>
+<br>
+<button (click)="subirOrden()">Subir orden</button>

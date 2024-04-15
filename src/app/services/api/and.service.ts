@@ -81,8 +81,11 @@ export class AndService {
   public liberarOrdenReques(idOrdenRequest){
     return this.http.put(this.baseAnd+"/orden/sap/liberar-orden/"+idOrdenRequest,idOrdenRequest);
   }
-  public subirOrden(img,request){
-    return this.http.post(this.baseAnd+"/orden/sap/subir-orden",img,request);
+  public subirOrden(img:File,request:string){
+    const formData = new FormData();
+    formData.append('img',img);
+    formData.append('request',request);
+    return this.http.post(this.baseAnd+"/orden/sap/subir-orden",formData);
   }
 
   /* ++Vendedores++ */
