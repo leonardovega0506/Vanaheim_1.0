@@ -27,13 +27,18 @@ export class LoginVanaheimComponent implements OnInit{
         this.loginService.getCurrentUser().subscribe(
           (user:any)=>{
             this.loginService.setUser(user);
-            /*if(this.loginService.getUserRoles()=="ROLE_ADMIN"){
+            if(this.loginService.getUserRoles()=="ROLE_ADMIN"){
               this.router.navigate(['admin']);
+            }
+            else if(this.loginService.getUserRoles()=="ROLE_VENTAS"){
+              this.router.navigate(['vendedor']);
+            }
+            else if(this.loginService.getUserRoles()=="ROLE_FINANZAS"){
+              this.router.navigate(['finanzas'])
             }
             else{
               this.loginService.logout();
-            }*/
-            this.router.navigate(['admin']);
+            }
           }
         );
       }

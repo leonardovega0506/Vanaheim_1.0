@@ -38,6 +38,7 @@ import { ListaOrdenRequestFinanzasComponent } from './views/finanzas/lista-orden
 import { DetalleOrdenRequestFinanzasComponent } from './views/finanzas/detalle-orden-request-finanzas/detalle-orden-request-finanzas.component';
 import { ListarOrdenesRequestVendedorComponent } from './views/vendedor/listar-ordenes-request-vendedor/listar-ordenes-request-vendedor.component';
 import { DetalleOrdenRequestVendedorComponent } from './views/vendedor/detalle-orden-request-vendedor/detalle-orden-request-vendedor.component';
+import { ListarUsuarioAdminComponent } from './views/admin/listar-usuario-admin/listar-usuario-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { DetalleOrdenRequestVendedorComponent } from './views/vendedor/detalle-o
     ListaOrdenRequestFinanzasComponent,
     DetalleOrdenRequestFinanzasComponent,
     ListarOrdenesRequestVendedorComponent,
-    DetalleOrdenRequestVendedorComponent
+    DetalleOrdenRequestVendedorComponent,
+    ListarUsuarioAdminComponent
   ],
   imports: [
     BrowserModule,

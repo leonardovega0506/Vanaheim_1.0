@@ -1,0 +1,28 @@
+<table>
+    <thead>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th>Area</th>
+        <th>Codigo</th>
+    </thead>
+<tbody *ngFor="let usuario of listaUsuario">
+    <td>{{usuario.nombre}}</td>
+    <td>{{usuario.username}}</td>
+    <td>{{usuario.area}}</td>
+    <td>{{usuario.slpCode}}</td>
+</tbody>
+</table>
+
+<form (ngSubmit)="crearUsuario()">
+    <input type="text" name="nombreUsuario" placeholder="Nombre" [(ngModel)]="usuarioData.nombre">
+    <br>
+    <input type="text" name="usario" placeholder="Usuario" [(ngModel)]="usuarioData.username">
+    <br>
+    <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="usuarioData.password">
+    <br>
+    <input type="text" name="area" placeholder="area" [(ngModel)]="usuarioData.area">
+    <br>
+    <input type="text" name="codigo" placeholder="codigo" [(ngModel)]="usuarioData.slpCode">
+    <br>
+    <input type="submit">
+</form>

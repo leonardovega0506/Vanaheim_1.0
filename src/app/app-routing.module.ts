@@ -25,10 +25,14 @@ import { ListarOrdenVendedorComponent } from './views/vendedor/listar-orden-vend
 import { ListarOrdenesRequestVendedorComponent } from './views/vendedor/listar-ordenes-request-vendedor/listar-ordenes-request-vendedor.component';
 import { DetalleClienteVendedorComponent } from './views/vendedor/detalle-cliente-vendedor/detalle-cliente-vendedor.component';
 import { DetalleOrdenRequestVendedorComponent } from './views/vendedor/detalle-orden-request-vendedor/detalle-orden-request-vendedor.component';
+import { ListarUsuarioAdminComponent } from './views/admin/listar-usuario-admin/listar-usuario-admin.component';
+import { AdminGuard } from './services/guards/admin/admin.guard';
+import { VentasGuard } from './services/guards/ventas/ventas.guard';
+import { FinazasGuard } from './services/guards/finanzas/finanzas.guard';
 
 const routes: Routes = [
   {path:'',component:LoginVanaheimComponent},
-  {path:'admin',component:DashboardAdminComponent,children:[
+  {path:'admin',component:DashboardAdminComponent,canActivate:[AdminGuard],children:[
     {path:'clientes',component:ListarClienteAdminComponent},
     {path:'clientes/:id',component:DetalleClienteAdminComponent},
     {path:'ordenes/sap',component:ListarOrdenAdminComponent},
@@ -37,9 +41,10 @@ const routes: Routes = [
     {path:'ordenes/request/add',component:SubirOrdenAdminComponent},
     {path:'ordenes/request/:id',component:DetalleOrdenRequestAdminComponent},
     {path:'vendedores',component:ListarVendedorAdminComponent},
-    {path:'vendedores/:id',component:DetalleVendedorAdminComponent}
+    {path:'vendedores/:id',component:DetalleVendedorAdminComponent},
+    {path:'usuarios',component:ListarUsuarioAdminComponent}
   ]},
-  {path:'finanzas',component:DashboardFinanzasComponent,children:[
+  {path:'finanzas',component:DashboardFinanzasComponent,canActivate:[FinazasGuard],children:[
     {path:'clientes',component:ListarClienteFinanzasComponent},
     {path:'clientes/:id',component:DetalleClienteFinanzasComponent},
     {path:'ordenes/sap',component:ListarOrdenFinanzasComponent},
@@ -47,7 +52,7 @@ const routes: Routes = [
     {path:'ordenes/request',component:ListaOrdenRequestFinanzasComponent},
     {path:'ordenes/request/:id',component:DetalleOrdenRequestFinanzasComponent}
   ]},
-  {path:'vendedor',component:DashboardVendedorComponent,children:[
+  {path:'vendedor',component:DashboardVendedorComponent,canActivate:[VentasGuard],children:[
     {path:'clientes',component:ListarClienteVendedorComponent},
     {path:'clientes/:id',component:DetalleClienteVendedorComponent},
     {path:'ordenes/sap',component:ListarOrdenVendedorComponent},

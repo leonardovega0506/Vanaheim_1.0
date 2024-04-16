@@ -117,4 +117,14 @@ export class AndService {
   public obtenerBancos(){
     return this.http.get("http://localhost:5248/midgard/bancos");
   }
+
+  /* ++Usuarios++ */
+  public listarUsuario(){
+    return this.http.get(this.baseAnd + "/auth/usuarios");
+  }
+
+  public crearUsuario(form: any) {
+    return this.http.post(this.baseAnd + "/auth/usuario?rol=" + form.area, form);
+  }
+  
 }
