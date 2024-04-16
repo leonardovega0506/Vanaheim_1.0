@@ -1,5 +1,31 @@
-<input type="text" name="userName" placeholder="Username" [(ngModel)]="loginForm.username">
-<br>
-<input type="password" name="password" placeholder="password" [(ngModel)]="loginForm.password">
-<br>
-<button (click)="login()">Ingresar</button>
+<canvas class="background"></canvas>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
+        <span class="login100-form-title-1">
+          <img src="/assets/ANANDANEGRO_2.png" alt="" width="250px">
+        </span>
+        <canvas class="background"></canvas>
+      </div>
+
+      <form class="login100-form validate-form" (ngSubmit)="login()">
+        <div class="wrap-input100 validate-input m-b-26">
+          <span class="label-input100">Usuario</span>
+          <input class="input100" type="text" name="username" placeholder="Ingresar usuario" [(ngModel)]="loginForm.username">
+          <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-18">
+          <span class="label-input100">Contraseña</span>
+          <input class="input100" type="password" name="pass" placeholder="Ingresar contraseña"  [(ngModel)]="loginForm.password">
+          <span class="focus-input100"></span>
+        </div>
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn" type="submit">
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
