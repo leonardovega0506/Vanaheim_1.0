@@ -1,1 +1,21 @@
-<p>listar-cliente-vendedor works!</p>
+<h1>Clientes finanzas</h1>
+<input type="text" name="cardCode" [(ngModel)]="cardCode" placeholder="Ingresar por card code">
+<button (click)="buscarClienteByCardCode()">Buscar por CardCode</button>
+<br>
+<input type="text" name="cardName" placeholder="Buscar por nombre" [(ngModel)]="cardName" (input)="listarClientesNombre()">
+<table>
+  <thead>
+    <th>#</th>
+    <th>Codigo</th>
+    <th>Nombre</th>
+    <th>Balance</th>
+    <th>Detalles</th>
+  </thead>
+  <tbody *ngFor="let cliente of listaClientes">
+    <td>{{cliente.idCliente}}</td>
+    <td>{{cliente.cardCode}}</td>
+    <td>{{cliente.cardName}}</td>
+    <td>{{cliente.balance | currency}}</td>
+    <td><a [routerLink]="'/vendedor/clientes/'+cliente.idCliente">Detalles</a></td>
+  </tbody>
+</table>

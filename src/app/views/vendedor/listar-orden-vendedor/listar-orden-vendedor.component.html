@@ -1,1 +1,28 @@
-<p>listar-orden-vendedor works!</p>
+<input type="text" name="docNum" placeholder="Numero de orden" [(ngModel)]="docNum">
+<button (click)="buscarOrdenByDocNum()">Buscar</button>
+<br>
+<input type="text" name="ref1" placeholder="Numero de factura" [(ngModel)]="ref1">
+<button (click)="buscarOrdenByFactura()">Buscar Por factura</button>
+<br><br>
+<input type="text" name="fecha" [(ngModel)]="fecha" placeholder="Fecha">
+<button (click)="listarOrdenesByFecha()">Buscar por fecha</button>
+<table>
+    <thead>
+        <th>Entrada</th>
+        <th>Numero</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Estatus</th>
+        <th>Accion</th>
+        <th>Accion</th>
+    </thead>
+    <tbody *ngFor="let orden of listaOrdenes">
+        <td>{{orden.docEntry}}</td>
+        <td>{{orden.docNum}}</td>
+        <td>{{orden.docDate}}</td>
+        <td>{{orden.docTotal}}</td>
+        <td>{{orden.u_estatusOV}}</td>
+        <td><a [routerLink]="'/vendedor/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
+        <td><button (click)="cargarPedido(orden.docNum)">Cargar pedido</button></td>
+    </tbody>
+</table>

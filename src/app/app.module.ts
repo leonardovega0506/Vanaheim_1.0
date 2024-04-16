@@ -34,6 +34,10 @@ import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-r
 import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { authInterceptorProviders } from './services/util/auth.interceptor';
+import { ListaOrdenRequestFinanzasComponent } from './views/finanzas/lista-orden-request-finanzas/lista-orden-request-finanzas.component';
+import { DetalleOrdenRequestFinanzasComponent } from './views/finanzas/detalle-orden-request-finanzas/detalle-orden-request-finanzas.component';
+import { ListarOrdenesRequestVendedorComponent } from './views/vendedor/listar-ordenes-request-vendedor/listar-ordenes-request-vendedor.component';
+import { DetalleOrdenRequestVendedorComponent } from './views/vendedor/detalle-orden-request-vendedor/detalle-orden-request-vendedor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +66,11 @@ import { authInterceptorProviders } from './services/util/auth.interceptor';
     DashboardOrdenesAdminComponent,
     ListarOrdenRequestAdminComponent,
     DetalleOrdenRequestAdminComponent,
-    SubirOrdenAdminComponent
+    SubirOrdenAdminComponent,
+    ListaOrdenRequestFinanzasComponent,
+    DetalleOrdenRequestFinanzasComponent,
+    ListarOrdenesRequestVendedorComponent,
+    DetalleOrdenRequestVendedorComponent
   ],
   imports: [
     BrowserModule,

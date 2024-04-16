@@ -1,1 +1,12 @@
-<p>topbar-orden-vendedor works!</p>
+<ul>
+    <li><a [routerLink]="'/vendedor'">Casa</a></li>
+    <li><a [routerLink]="'/vendedor/clientes'">Clientes</a></li>
+    <li><a [routerLink]="'/vendedor/ordenes'">Ordenes</a>
+      <ul>
+        <li><a [routerLink]="'/vendedor/ordenes/sap'">Ordenes de Venta</a></li>
+        <li><a [routerLink]="'/vendedor/ordenes/request'">Ordenes a liberar</a></li>
+      </ul>
+    </li>
+    <li>Salir</li>
+  </ul>
+  

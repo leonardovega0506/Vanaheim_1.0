@@ -1,1 +1,36 @@
-<p>detalle-cliente-vendedor works!</p>
+<h1>Detalles</h1>
+<h2>Nombre</h2>
+<h3>{{cliente?.cardName}}</h3>
+<h2>Codigo</h2>
+<h3>{{cliente?.cardCode}}</h3>
+<h2>Telefono</h2>
+<h3>{{cliente?.phone1}}</h3>
+<h2>Balance</h2>
+<h3>{{cliente?.balance}}</h3>
+<h2>Grupo</h2>
+<h2>{{cliente?.groupNum}}</h2>
+<h2>RFC</h2>
+<h3>{{cliente?.licTradNum}}</h3>
+
+<button (click)="obtenerOrdenesCliente()">Traer ordenes</button>
+
+<table>
+    <thead>
+        <th>#</th>
+        <th>Codigo</th>
+        <th># Entrada</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Estatus</th>
+        <th>Acción</th>
+    </thead>
+    <tbody *ngFor="let orden of listaOrdenes">
+        <td>{{orden.idOrdenVenta}}</td>
+        <td>{{orden.docNum}}</td>
+        <td>{{orden.docEntry}}</td>
+        <td>{{orden.docDate}}</td>
+        <td>{{orden.docTotal}}</td>
+        <td>{{orden.u_estatusOV}}</td>
+        <td><a [routerLink]="'/admin/ordenes/'+orden.idOrdenVenta">Detalles</a></td>
+    </tbody>
+</table>

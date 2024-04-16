@@ -1,1 +1,11 @@
-<p>topbar-finanzas works!</p>
+<ul>
+  <li><a [routerLink]="'/finanzas'">Casa</a></li>
+  <li><a [routerLink]="'/finanzas/clientes'">Clientes</a></li>
+  <li><a [routerLink]="'/finanzas/ordenes'">Ordenes</a>
+    <ul>
+      <li><a [routerLink]="'/finanzas/ordenes/sap'">Ordenes de Venta</a></li>
+      <li><a [routerLink]="'/finanzas/ordenes/request'">Ordenes a liberar</a></li>
+    </ul>
+  </li>
+  <li>Salir</li>
+</ul>

@@ -1,0 +1,25 @@
+<input type="text" name="docNum" [(ngModel)]="docNum" placeholder="Numero de orden">
+<button (click)="buscarByDocNum()">Buscar</button>
+<br>
+<table>
+    <thead>
+        <th>#</th>
+        <th>Numero</th>
+        <th>Total</th>
+        <th>Estatus</th>
+        <th>Accion</th>
+        <th>Accion</th>
+        <th>Accion</th>
+    </thead>
+    <tbody *ngFor="let orden of listaOrdenes">
+        <td>{{orden.idOrdenVenta}}</td>
+        <td>{{orden.docNum}}</td>
+        <td>{{orden.docTotal}}</td>
+        <td>{{orden.estatusOrden}}</td>
+        <td><a [routerLink]="'/finanzas/ordenes/request/'+orden.idOrdenVenta">Detalles</a></td>
+        <td><button (click)="liberarOrden(orden.idOrdenVenta,orden.estatusOrden)">Liberar</button></td>
+        <td><button (click)="verImagen(orden.imagen)">Ver Imagen</button></td>
+    </tbody>
+</table>
+
+<img [src]="image">
