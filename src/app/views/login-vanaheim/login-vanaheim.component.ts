@@ -63,6 +63,8 @@ export class LoginVanaheimComponent implements OnInit {
             icon:'success',
             title:'Exito',
             text:'Exito al Ingresar',
+            showConfirmButton:true,
+            confirmButtonColor:'#3A68DE',
             timer:2500,
             customClass:{
               title:'my-custom-title',
@@ -94,6 +96,8 @@ export class LoginVanaheimComponent implements OnInit {
             icon: 'error',
             title: 'Error',
             text: 'Error al ingresar',
+            showConfirmButton:true,
+            confirmButtonColor:'#3AD0DE',
             timer: 3000
           });
         }
