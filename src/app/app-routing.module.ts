@@ -30,6 +30,7 @@ import { AdminGuard } from './services/guards/admin/admin.guard';
 import { VentasGuard } from './services/guards/ventas/ventas.guard';
 import { FinazasGuard } from './services/guards/finanzas/finanzas.guard';
 import { DetalleOrdenFinanzasComponent } from './views/finanzas/detalle-orden-finanzas/detalle-orden-finanzas.component';
+import { SubirOrdenVendedorComponent } from './views/vendedor/subir-orden-vendedor/subir-orden-vendedor.component';
 
 const routes: Routes = [
   {path:'',component:LoginVanaheimComponent},
@@ -58,6 +59,7 @@ const routes: Routes = [
     {path:'clientes/:id',component:DetalleClienteVendedorComponent},
     {path:'ordenes/sap',component:ListarOrdenVendedorComponent},
     {path:'ordenes/sap/:id',component:DetalleOrdenVendedorComponent},
+    {path:'ordenes/request/add',component:SubirOrdenVendedorComponent},
     {path:'ordenes/request',component:ListarOrdenesRequestVendedorComponent},
     {path:'ordenes/request/:id',component:DetalleOrdenRequestVendedorComponent}
   ]}

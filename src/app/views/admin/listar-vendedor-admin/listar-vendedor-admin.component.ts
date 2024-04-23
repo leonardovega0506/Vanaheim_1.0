@@ -20,6 +20,8 @@ export class ListarVendedorAdminComponent implements OnInit {
   currentPage: number = 1;
   sortDir: boolean = true;
   cantidad: any = 10;
+  mostrarBotonNext:any;
+  private columnaOrdenada: string = '';
 
   //Atributos
   listaVendedores: any = [];
@@ -83,13 +85,18 @@ export class ListarVendedorAdminComponent implements OnInit {
   }
 
 
-  listarVendedores(page: number, cantidad: any, orderBy: string, sortDir: string) {
+  listarVendedores(page: number, cantidad: any, orderBy: string, sortDir) {
     this.and.obtenerVendedores(orderBy, page, cantidad, sortDir).subscribe(
       (data: any) => {
         console.log(data);
         this.listaVendedores = data.content;
-        this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+        this.pages = Array.from({length: data.totalPages}, (_, i) => i + 1);
         this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       }
     );
   }
@@ -99,6 +106,13 @@ export class ListarVendedorAdminComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.listaVendedores = data.content;
+        this.pages = Array.from({length: data.totalPages}, (_, i) => i + 1);
+        this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       }
     );
   }
@@ -116,5 +130,28 @@ export class ListarVendedorAdminComponent implements OnInit {
     }
   }
 
+  sortColumn(columna) {
+    if (this.currentPage == 0) {
+      this.listarVendedores(this.currentPage, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+
+      this.listarVendedores(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
+    }
+    else {
+      this.listarVendedores(this.currentPage - 1, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+      this.listarVendedores(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
+    }
+  }
 
 }

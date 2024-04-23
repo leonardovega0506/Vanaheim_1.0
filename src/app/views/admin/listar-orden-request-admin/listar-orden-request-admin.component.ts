@@ -22,12 +22,14 @@ export class ListarOrdenRequestAdminComponent implements OnInit {
   currentPage: number = 1;
   sortDir: boolean = true;
   cantidad: any = 10;
+  private columnaOrdenada: string = '';
 
   //Atributos
   listaOrdenes: any = [];
   fecha: any;
   docNum: any
   image: any;
+  mostrarBotonNext:boolean;
 
   constructor(private and: AndService, private router: Router, private sanitizer: DomSanitizer,private modal:NgbModal,private datepipe:DatePipe) { }
 
@@ -56,13 +58,39 @@ export class ListarOrdenRequestAdminComponent implements OnInit {
   listarOrdenesRequest(page: number, cantidad: any, orderBy: string, sortDir) {
     this.and.obtenerOrdenesRequest(orderBy, page, cantidad, sortDir).subscribe(
       (data: any) => {
-        console.log(data);
         this.listaOrdenes = data.content;
         this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
         this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       }
     );
   }
+
+  listaOrdenesEstatus(estatus){
+    this.and.obtenerOrdenRequestEstatus("idOrdenVenta", this.page, this.cantidad, this.sortDir,estatus).subscribe(
+      (data: any) => {
+        if(data.status==404){
+          this.listaOrdenes = data.content;
+          this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+          this.currentPage = data.numPage;
+          if (data.isLast) {
+            this.mostrarBotonNext = false; 
+          } else {
+            this.mostrarBotonNext = true; 
+          }
+        }
+      },
+      (error:any)=>{
+        Swal.fire('Error',"No se encontro registros","warning");
+        this.listaOrdenes = [];
+      }
+    );
+  }
+  
 
   listarOrdenesRequestByFecha() {
     let date = this.datepipe.transform(this.fecha, 'yyyy-MM-dd');
@@ -93,6 +121,11 @@ export class ListarOrdenRequestAdminComponent implements OnInit {
         this.listaOrdenes = data.content;
         this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
         this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       },
       (error) => {
         console.log(error);
@@ -143,6 +176,30 @@ export class ListarOrdenRequestAdminComponent implements OnInit {
     } else if (page >= 1 && page <= this.pages.length) {
       this.paginationPage = page;
       this.listarOrdenesRequest(this.paginationPage - 1, this.cantidad, "idOrdenVenta", "asc");
+    }
+  }
+
+  sortColumn(columna) {
+    if (this.currentPage == 0) {
+      this.listarOrdenesRequest(this.currentPage, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+
+      this.listarOrdenesRequest(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
+    }
+    else {
+      this.listarOrdenesRequest(this.currentPage - 1, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+      this.listarOrdenesRequest(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
     }
   }
 

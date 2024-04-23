@@ -92,7 +92,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule
   ],
   providers: [authInterceptorProviders,
     { provide: LocationStrategy, useClass: HashLocationStrategy },DatePipe],

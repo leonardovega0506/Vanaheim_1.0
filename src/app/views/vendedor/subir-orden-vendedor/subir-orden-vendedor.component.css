@@ -1,0 +1,10 @@
+h1{
+    font-family: 'ZTGatha-SemiBold';
+    position: relative;
+    left: 30%;
+    border-bottom:1px solid #5A80E0;
+    width: 150px;
+  }
+  *{
+    font-family: 'ZTGatha-SemiBold';
+  }

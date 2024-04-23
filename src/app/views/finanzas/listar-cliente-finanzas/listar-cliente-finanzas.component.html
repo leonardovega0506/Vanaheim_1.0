@@ -8,6 +8,22 @@
       <div class="table-responsive custom-table-responsive">
         <div class="position-relative">
           <div class="px-2">
+            <div class="col-sm-4">
+              <!--Mostrar la cantidad de registros que traera-->
+              <form class="form-horizontal pull-right">
+                <div class="form-group">
+                  <select class="form-control" id="cantidad"
+                    (change)="listarClientes(pageActual,$event.target['value'],'idCliente','asc')" [(ngModel)]="cantidad"
+                    name="cantidad">
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                    <option [value]="15">15</option>
+                    <option [value]="20">20</option>
+                  </select>
+                  <label for="cantidad" display="inline" style="font-family: 'Monserrat-Regular';">Cantidad</label>
+                </div>
+              </form>
+            </div>
             <span>Filters <i class="fa fa-angle-down"></i></span>
             <i class="fa fa-ellipsis-h ms-3"></i>
           </div>
@@ -18,9 +34,9 @@
         <table class="table custom-table">
           <thead style="border-radius: 50px;">
             <tr>
-              <th>Codigo</th>
-              <th>Nombre</th>
-              <th>Balance</th>
+              <th><a (click)="sortColumn('cardCode')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i>Codigo</a></th>
+              <th><a (click)="sortColumn('cardName')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i>Nombre</a></th>
+              <th><a (click)="sortColumn('balance')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i>Balance</a></th>
               <th>Detalles</th>
             </tr>
           </thead>
@@ -35,12 +51,16 @@
               <td colspan="100"></td>
             </tr>
           </tbody>
-          <tfoot>
+          <tfoot *ngIf="paginacionTrue">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a></li>
-                <li class="page-item" *ngFor="let page of pages"><a class="page-link"(click)="changePage(page)">{{page}}</a></li>
-                <li class="page-item"><a class="page-link"  (click)="changePage(+1)">Next</a></li>
+                <li class="page-item" *ngFor="let page of pages">
+                  <a class="page-link" (click)="changePage(page)" [ngClass]="{ 'active-page': paginationPage == page }">
+                    {{ page }}
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link"  (click)="changePage(+1)" *ngIf="mostrarBotonNext">Next</a></li>
               </ul>
             </nav>
           </tfoot>

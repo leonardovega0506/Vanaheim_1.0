@@ -253,3 +253,8 @@ body{
   background-color: #5AABE0;
   box-shadow: none;
 }
+.pagination .active-page {
+  font-weight: bold;
+  color: #FFF;
+  background-color: #024dbc;
+}

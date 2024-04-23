@@ -29,6 +29,9 @@ export class ListarOrdenAdminComponent implements OnInit {
   currentPage: number = 1;
   sortDir: boolean = true;
   cantidad: any = 10;
+  mostrarBotonNext:boolean;
+  private columnaOrdenada: string = '';
+
 
   //Atributos
   listaOrdenes: any = [];
@@ -68,8 +71,13 @@ export class ListarOrdenAdminComponent implements OnInit {
     this.and.obtenerOrdenes(orderBy, page, cantidad, sortDir).subscribe(
       (data: any) => {
         this.listaOrdenes = data.content;
-        this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+        this.pages = Array.from({length: data.totalPages}, (_, i) => i + 1);
         this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       }
     );
   }
@@ -101,8 +109,13 @@ export class ListarOrdenAdminComponent implements OnInit {
           }
         });
         this.listaOrdenes = data.content;
-        this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+        this.pages = Array.from({length: data.totalPages}, (_, i) => i + 1);
         this.currentPage = data.numPage;
+        if (data.isLast) {
+          this.mostrarBotonNext = false; 
+        } else {
+          this.mostrarBotonNext = true; 
+        }
       },
       (error) => {
         console.log(error);
@@ -127,13 +140,36 @@ export class ListarOrdenAdminComponent implements OnInit {
   changePage(page: number) {
     if (page === -1 && this.paginationPage > 1) {
       this.paginationPage--;
-      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idCliente", "asc");
+      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idOrdenVenta", "asc");
     } else if (page === +1 && this.paginationPage < this.pages.length) {
       this.paginationPage++;
-      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idCliente", "asc");
+      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idOrdenVenta", "asc");
     } else if (page >= 1 && page <= this.pages.length) {
       this.paginationPage = page;
-      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idCliente", "asc");
+      this.listarOrdenes(this.paginationPage - 1, this.cantidad, "idOrdenVenta", "asc");
+    }
+  }
+  sortColumn(columna) {
+    if (this.currentPage == 0) {
+      this.listarOrdenes(this.currentPage, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+
+      this.listarOrdenes(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
+    }
+    else {
+      this.listaOrdenes(this.currentPage - 1, this.cantidad, columna, this.sortDir);
+      if (this.columnaOrdenada === columna) {
+        this.sortDir = !this.sortDir;
+      } else {
+        this.sortDir = true;
+      }
+      this.columnaOrdenada = columna;
+      this.listarOrdenes(this.pageActual, this.cantidad, columna, this.sortDir ? 'asc' : 'desc');
     }
   }
 

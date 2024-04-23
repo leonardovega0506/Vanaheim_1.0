@@ -11,6 +11,22 @@
       <div class="table-responsive custom-table-responsive">
         <div class="position-relative">
           <div class="px-2">
+            <div class="col-sm-4">
+              <!--Mostrar la cantidad de registros que traera-->
+              <form class="form-horizontal pull-right">
+                <div class="form-group">
+                  <select class="form-control" id="cantidad"
+                    (change)="listarOrdenes(pageActual,$event.target['value'],'idOrdenVenta','asc')" [(ngModel)]="cantidad"
+                    name="cantidad">
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                    <option [value]="15">15</option>
+                    <option [value]="20">20</option>
+                  </select>
+                  <label for="cantidad" display="inline" style="font-family: 'Monserrat-Regular';">Cantidad</label>
+                </div>
+              </form>
+            </div>
             <span>Filters <i class="fa fa-angle-down"></i></span>
             <i class="fa fa-ellipsis-h ms-3"></i>
           </div>
@@ -27,11 +43,11 @@
         <table class="table custom-table">
           <thead style="border-radius: 50px;">
             <tr>
-              <th scope="col" width="5%">Entrada</th>
-              <th>Numero</th>
-              <th>Fecha</th>
-              <th>Total</th>
-              <th>Estatus</th>
+              <th scope="col" width="5%"><a (click)="sortColumn('docEntry')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Entrada</th>
+              <th><a (click)="sortColumn('docNum')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i>Numero</a></th>
+              <th><a (click)="sortColumn('docDate')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Fecha</th>
+              <th><a (click)="sortColumn('docTotal')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Total</th>
+              <th><a (click)="sortColumn('u_estatusOV')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Estatus</th>
               <th>Accion</th>
               <th>Accion</th>
             </tr>
@@ -40,7 +56,7 @@
             <td>{{orden.docEntry}}</td>
             <td>{{orden.docNum}}</td>
             <td>{{orden.docDate}}</td>
-            <td>{{orden.docTotal}}</td>
+            <td>{{orden.docTotal | currency}}</td>
             <td>{{orden.u_estatusOV}}</td>
             <td><a [routerLink]="'/admin/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
             <td><button class="btn btn-outline-primary" (click)="cargarPedido(orden.docNum)">Cargar pedido</button></td>
@@ -50,9 +66,12 @@
               <ul class="pagination">
                 <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a>
                 </li>
-                <li class="page-item" *ngFor="let page of pages"><a class="page-link"
-                    (click)="changePage(page)">{{page}}</a></li>
-                <li class="page-item"><a class="page-link" (click)="changePage(+1)">Next</a></li>
+                <li class="page-item" *ngFor="let page of pages">
+                  <a class="page-link" (click)="changePage(page)" [ngClass]="{ 'active-page': paginationPage == page }">
+                    {{ page }}
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="changePage(+1)" *ngIf="mostrarBotonNext">Next</a></li>
               </ul>
             </nav>
           </tfoot>

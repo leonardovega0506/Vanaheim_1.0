@@ -44,48 +44,5 @@ export class DetalleOrdenRequestAdminComponent implements OnInit{
     this.modal.open(modal);
     this.verImagen(imagen);
   }
-  liberarOrden(idOrdenVenta, estatus) {
-    if (estatus == "Cargado") {
-        Swal.fire({
-          title: 'Liebrado',
-          text: 'Por favor espere',
-          didOpen: () => {
-            Swal.showLoading();
-          },
-          imageUrl: '/assets/esperando.png',
-          imageWidth: 450,
-          imageHeight: 400,
-          imageAlt: 'Liberando'
-        });
-        from(this.and.liberarOrdenReques(idOrdenVenta)).subscribe(
-          (data: any) => {
-            Swal.fire({
-              icon:'success',
-              title:'Exito',
-              text:'Exito al Liberar',
-              showConfirmButton:true,
-              confirmButtonColor:'#3A68DE',
-              timer:2500,
-              customClass:{
-                title:'my-custom-title',
-              }
-            });
-            this.ngOnInit();
-          },
-          (error)=>{
-            console.log(error);
-            Swal.close();
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error al liberar',
-              showConfirmButton:true,
-              confirmButtonColor:'#3AD0DE',
-              timer: 3000
-            });
-          }
-        );
-      }
 
-  }
 }

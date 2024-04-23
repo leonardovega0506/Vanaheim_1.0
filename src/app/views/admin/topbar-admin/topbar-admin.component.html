@@ -11,23 +11,32 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="'/admin'">Casa</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="'/admin'">          
+            <i><img src="/assets/casa.png" width="25px" height="25px"></i>Casa</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="'/admin/clientes'">Clientes</a>
+          <a class="nav-link" href="#" [routerLink]="'/admin/clientes'">
+            <i><img src="/assets/cliente.png" width="25px" height="25px"></i>
+            Clientes</a>
         </li>
         <li class="nav-item" (mouseover)="showSubMenu = true" (mouseout)="showSubMenu = false">
-          <a class="nav-link">Ordenes</a>
+          <a class="nav-link">
+            <i><img src="/assets/lista-de-la-compra.png" width="25px" height="25px"></i>
+            Ordenes</a>
           <ul [class.show]="showSubMenu" class="submenu">
             <li><a [routerLink]="'/admin/ordenes/sap'">Ordenes de Venta</a></li>
             <li><a [routerLink]="'/admin/ordenes/request'">Ordenes a liberar</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/admin/vendedores'">Vendedores</a>
+          <a class="nav-link" [routerLink]="'/admin/vendedores'">
+            <i><img src="/assets/vendedor.png" width="25px" height="25px"></i>
+            Vendedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/admin/usuarios'">Usuarios</a>
+          <a class="nav-link" [routerLink]="'/admin/usuarios'">
+            <i><img src="/assets/usuario.png" width="25px" height="25px"></i>
+            Usuarios</a>
         </li>
         <li class="nav-item logout-link">
           <a class="nav-link" (click)="logout()">Salir</a>

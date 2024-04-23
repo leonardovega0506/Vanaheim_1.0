@@ -78,6 +78,10 @@ export class AndService {
     return this.http.get(this.baseAnd+"/orden/sap/imagen/?imageName="+name, {responseType: 'blob'});
   }
 
+  public obtenerOrdenRequestEstatus(orderBy,pageNo,pageSize,sortDir,estatus){
+    return this.http.get(this.baseAnd+"/orden/sap/estatus?estatus="+estatus+"&orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
+  }
+
   public liberarOrdenReques(idOrdenRequest){
     return this.http.put(this.baseAnd+"/orden/sap/liberar-orden/"+idOrdenRequest,idOrdenRequest);
   }
@@ -90,7 +94,7 @@ export class AndService {
 
   /* ++Vendedores++ */
   public obtenerVendedores(orderBy,pageNo,pageSize,sortDir){
-    return this.http.get(this.baseAnd+"/vendedor?orderBy=idVendedor&pageNo=0&pageSize=10&sortDir=asc");
+    return this.http.get(this.baseAnd+"/vendedor?orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
   }
 
   public obtenerClientesVendedor(idVendedor,orderBy,pageNo,pageSize,sortDir){
@@ -108,6 +112,19 @@ export class AndService {
   public obtenerOrdenByVendedor(idVendedor,orderBy,pageNo,pageSize,sortDir){
     return this.http.get(this.baseAnd+"/vendedor/orden/?idVendedor="+idVendedor+"&orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
   }
+
+  public obtenerOrdenByVendedorDate(idVendedor,orderBy,pageNo,pageSize,sortDir,date){
+    return this.http.get(this.baseAnd+"/vendedor/orden/date?fecha="+date+"&idVendedor="+idVendedor+"&orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
+  }
+
+  public obtenerOrdenRequestByVendedor(idVendedor,orderBy,pageNo,pageSize,sortDir){
+    return this.http.get(this.baseAnd+"/vendedor/orden/request?idVendedor="+idVendedor+"&orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
+  }
+
+  public obtenerOrdenRequestByVendedorDate(idVendedor,orderBy,pageNo,pageSize,sortDir,date){
+    return this.http.get(this.baseAnd+"/vendedor/orden/request/date?fecha="+date+"&idVendedor="+idVendedor+"&orderBy="+orderBy+"&pageNo="+pageNo+"&pageSize="+pageSize+"&sortDir="+sortDir);
+  }
+
 
   public obtenerVendedorBySlpCode(slpCode){
     return this.http.get(this.baseAnd+"/vendedor/slpCode?slpCode="+slpCode);

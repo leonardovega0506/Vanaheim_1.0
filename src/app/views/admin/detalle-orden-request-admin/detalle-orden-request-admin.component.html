@@ -137,7 +137,6 @@
                   </div>
                 </div>
                 <button (click)="openModalImagen(ordenVenta?.imagen,imagenModal)">Ver Imagen</button>
-                <button *ngIf="ordenVenta?.estatusOrden != 'Liberado'" (click)="liberarOrden(ordenVenta?.idOrdenVenta,ordenVenta.estatusOrden)">Liberar</button>
             </div>
           </div>
         </div>

@@ -1,24 +1,128 @@
-<input type="text" name="docNum" [(ngModel)]="docNum" placeholder="Numero de orden">
-<button (click)="buscarByDocNum()">Buscar</button>
-<br>
-<button [routerLink]="'/admin/ordenes/request/add'">Subir orden</button>
-<table>
-    <thead>
-        <th>#</th>
-        <th>Numero</th>
-        <th>Total</th>
-        <th>Estatus</th>
-        <th>Accion</th>
-        <th>Accion</th>
-    </thead>
-    <tbody *ngFor="let orden of listaOrdenes">
-        <td>{{orden.idOrdenVenta}}</td>
-        <td>{{orden.docNum}}</td>
-        <td>{{orden.docTotal}}</td>
-        <td>{{orden.estatusOrden}}</td>
-        <td><a [routerLink]="'/vendedor/ordenes/request/'+orden.idOrdenVenta">Detalles</a></td>
-        <td><button (click)="verImagen(orden.imagen)">Ver Imagen</button></td>
-    </tbody>
-</table>
+<div>
+  <h1>Ordenes SAP</h1>
+  <button class="login100-form-btn" type="submit" (click)="openModal(buscarOrden)">
+    Buscar Orden
+  </button>
+  <button class="login100-form-btn" type="submit" [routerLink]="'/admin/ordenes/request/add'">
+    Subir Orden
+  </button>
+  <div class="content">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <div class="position-relative">
+          <div class="px-2">
+            <div class="col-sm-4">
+              <!--Mostrar la cantidad de registros que traera-->
+              <form class="form-horizontal pull-right">
+                <div class="form-group">
+                  <select class="form-control" id="cantidad"
+                    (change)="listarOrdenesRequest(slpCode,pageActual,$event.target['value'],'idOrdenVenta','asc')" [(ngModel)]="cantidad"
+                    name="cantidad">
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                    <option [value]="15">15</option>
+                    <option [value]="20">20</option>
+                  </select>
+                  <label for="cantidad" display="inline" style="font-family: 'Monserrat-Regular';">Cantidad</label>
+                </div>
+              </form>
+            </div>
+            <span>Filters <i class="fa fa-angle-down"></i></span>
+            <i class="fa fa-ellipsis-h ms-3"></i>
+          </div>
+          <mat-form-field>
+            <mat-label>Buscar por fecha</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" class="input-data"
+              style="background-color: transparent;    font-family: ZTGatha-SemiBold;" name="fechaBusqueda">
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button (click)="listarOrdenesRequestByFecha()" class="btn btn-outline-primary"
+            style="font-family: ZTGatha-SemiBold; border-radius: 25px;">Buscar por fecha</button>
+        </div>
+        <br><br>
+        <table class="table custom-table">
+          <thead style="border-radius: 50px;">
+            <tr>
+              <th><a (click)="sortColumn('idOrdenVenta')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>#</th>
+              <th><a (click)="sortColumn('docNum')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Numero</th>
+              <th><a (click)="sortColumn('docTotal')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Total</th>
+              <th><a (click)="sortColumn('docDate')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Fecha</th>
+              <th><a (click)="sortColumn('estatusOrden')"><i><img src="/assets/ordenar.png" width="25px" height="25px"></i></a>Estatus</th>
+              <th>Accion</th>
+              <th>Accion</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let orden of listaOrdenes">
+            <td>{{orden.idOrdenVenta}}</td>
+            <td>{{orden.docNum}}</td>
+            <td>{{orden.docTotal}}</td>
+            <td>{{orden.docDate}}</td>
+            <td>{{orden.estatusOrden}}</td>
+            <td><a [routerLink]="'/admin/ordenes/request/'+orden.idOrdenVenta">Detalles</a></td>
+            <ng-template #liberado>
+              <td></td>
+            </ng-template>
+            <td><button (click)="openModalImagen(orden.imagen,imagen)" class="btn btn-outline-primary">Ver Imagen</button></td>
+          </tbody>
+          <tfoot>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a>
+                </li>
+                <li class="page-item" *ngFor="let page of pages">
+                  <a class="page-link" (click)="changePage(page)" [ngClass]="{ 'active-page': paginationPage == page }">
+                    {{ page }}
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" (click)="changePage(+1)" *ngIf="mostrarBotonNext">Next</a></li>
+              </ul>
+            </nav>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-<img [src]="image">
+<!--Ventana modal buscar cliente-->
+<ng-template #buscarOrden let-modal>
+  <!--Cabecera-->
+  <div class="modal-header fondo-cabecera">
+    <h4 class="modal-title">Buscar cliente por código</h4>
+    <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--Cuerpo-->
+  <div class="modal-body fondo-modal">
+    <p>Ingrese el codigo a buscar</p>
+    <input class="wrap-input100 " type="text" name="cardCode" placeholder="Codigo"  [(ngModel)]="docNum" >
+  </div>
+  <!--Footer-->
+  <div class="modal-footer">
+    <button type="submit" class="login100-form-btn" (click)="buscarByDocNum()">Buscar</button>
+    <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<!--Ventana modal buscar cliente-->
+<ng-template #imagen let-modal>
+  <!--Cabecera-->
+  <div class="modal-header fondo-cabecera">
+    <h4 class="modal-title">Imagen</h4>
+    <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--Cuerpo-->
+  <div class="modal-body fondo-modal">
+    <img [src]="image">
+  </div>
+  <!--Footer-->
+  <div class="modal-footer">
+    <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>

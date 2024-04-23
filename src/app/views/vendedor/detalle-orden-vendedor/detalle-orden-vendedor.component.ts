@@ -22,13 +22,4 @@ export class DetalleOrdenVendedorComponent {
       }
     );
   }
-
-  actualizarEstatusOrden() {
-    this.and.actalizarOrden(this.orden.docNum, this.u_estatusOV).subscribe(
-      (data: any) => {
-        console.log(data);
-        this.ngOnInit();
-      }
-    );
-  }
 }
