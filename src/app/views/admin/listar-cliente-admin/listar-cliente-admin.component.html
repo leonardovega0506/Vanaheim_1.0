@@ -1,21 +1,72 @@
-<h1>Clientes</h1>
-<input type="text" name="cardCode" [(ngModel)]="cardCode" placeholder="Ingresar por card code">
-<button (click)="buscarClienteByCardCode()">Buscar por CardCode</button>
-<br>
-<input type="text" name="cardName" placeholder="Buscar por nombre" [(ngModel)]="cardName" (input)="listarClientesNombre()">
-<table>
-  <thead>
-    <th>#</th>
-    <th>Codigo</th>
-    <th>Nombre</th>
-    <th>Balance</th>
-    <th>Detalles</th>
-  </thead>
-  <tbody *ngFor="let cliente of listaClientes">
-    <td>{{cliente.idCliente}}</td>
-    <td>{{cliente.cardCode}}</td>
-    <td>{{cliente.cardName}}</td>
-    <td>{{cliente.balance | currency}}</td>
-    <td><a [routerLink]="'/admin/clientes/'+cliente.idCliente">Detalles</a></td>
-  </tbody>
-</table>
+<div>
+  <h1>Clientes</h1>
+  <button class="login100-form-btn" type="submit" (click)="openModal(buscarCliente)">
+    Buscar cliente
+  </button>
+  <div class="content">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <div class="position-relative">
+          <div class="px-2">
+            <span>Filters <i class="fa fa-angle-down"></i></span>
+            <i class="fa fa-ellipsis-h ms-3"></i>
+          </div>
+          <span class="position-absolute search"><i class="fa fa-search"></i></span>
+          <input class="form-control w-100" [(ngModel)]="cardName" placeholder="Buscar por nombre..." name="cardName"
+            (input)="listarClientesNombre()">
+        </div>
+        <table class="table custom-table">
+          <thead style="border-radius: 50px;">
+            <tr>
+              <th>Codigo</th>
+              <th>Nombre</th>
+              <th>Balance</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let cliente of listaClientes">
+            <tr scope="row">
+              <td>{{cliente.cardCode}}</td>
+              <td><a [routerLink]="'/admin/clientes/'+cliente.idCliente">{{cliente.cardName}}</a></td>
+              <td>{{cliente.balance | currency}}</td>
+              <td><a [routerLink]="'/admin/clientes/'+cliente.idCliente">Detalles</a></td>
+            </tr>
+            <tr class="spacer">
+              <td colspan="100"></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a></li>
+                <li class="page-item" *ngFor="let page of pages"><a class="page-link"(click)="changePage(page)">{{page}}</a></li>
+                <li class="page-item"><a class="page-link"  (click)="changePage(+1)">Next</a></li>
+              </ul>
+            </nav>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Ventana modal buscar cliente-->
+<ng-template #buscarCliente let-modal>
+  <!--Cabecera-->
+  <div class="modal-header fondo-cabecera">
+    <h4 class="modal-title">Buscar cliente por código</h4>
+    <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--Cuerpo-->
+  <div class="modal-body fondo-modal">
+    <p>Ingrese el codigo a buscar</p>
+    <input class="wrap-input100 " type="text" name="cardCode" [(ngModel)]="cardCode" placeholder="Codigo">
+  </div>
+  <!--Footer-->
+  <div class="modal-footer">
+    <button type="submit" class="login100-form-btn" (click)="buscarClienteByCardCode()">Buscar</button>
+    <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>

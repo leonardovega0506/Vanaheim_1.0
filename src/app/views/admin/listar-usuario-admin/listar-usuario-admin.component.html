@@ -1,28 +1,64 @@
-<table>
-    <thead>
-        <th>Nombre</th>
-        <th>Usuario</th>
-        <th>Area</th>
-        <th>Codigo</th>
-    </thead>
-<tbody *ngFor="let usuario of listaUsuario">
-    <td>{{usuario.nombre}}</td>
-    <td>{{usuario.username}}</td>
-    <td>{{usuario.area}}</td>
-    <td>{{usuario.slpCode}}</td>
-</tbody>
-</table>
+<div>
+  <h1>Usuarios</h1>
+  <button class="login100-form-btn" type="submit" (click)="openModal(buscarVendedor)">
+    Crear usuaruio
+  </button>
+  <div class="content">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <table class="table custom-table">
+          <thead style="border-radius: 50px;">
+            <tr>
+              <th>Nombre</th>
+              <th>Usuario</th>
+              <th>Area</th>
+              <th>Codigo</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let usuario of listaUsuario">
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.area}}</td>
+            <td>{{usuario.slpCode}}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-<form (ngSubmit)="crearUsuario()">
-    <input type="text" name="nombreUsuario" placeholder="Nombre" [(ngModel)]="usuarioData.nombre">
-    <br>
-    <input type="text" name="usario" placeholder="Usuario" [(ngModel)]="usuarioData.username">
-    <br>
-    <input type="password" name="password" placeholder="Contraseña" [(ngModel)]="usuarioData.password">
-    <br>
-    <input type="text" name="area" placeholder="area" [(ngModel)]="usuarioData.area">
-    <br>
-    <input type="text" name="codigo" placeholder="codigo" [(ngModel)]="usuarioData.slpCode">
-    <br>
-    <input type="submit">
-</form>
+<!--Ventana modal buscar cliente-->
+<ng-template #buscarVendedor let-modal>
+  <!--Cabecera-->
+  <div class="modal-header fondo-cabecera">
+    <h4 class="modal-title">Buscar vendedor por código</h4>
+    <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--Cuerpo-->
+  <div class="modal-body fondo-modal">
+    <form (ngSubmit)="crearUsuario()">
+      <input class="wrap-input100" type="text" name="nombreUsuario" placeholder="Nombre" [(ngModel)]="usuarioData.nombre">
+      <br>
+      <input class="wrap-input100" type="text" name="usario" placeholder="Usuario" [(ngModel)]="usuarioData.username">
+      <br>
+      <input class="wrap-input100" type="password" name="password" placeholder="Contraseña" [(ngModel)]="usuarioData.password">
+      <br>
+      <select class="wrap-input100" [(ngModel)]="usuarioData.area">
+        <option value="TI">TI</option>
+        <option value="VENTAS">VENTAS</option>
+        <option value="FINANZAS">FINANZAS</option>
+      </select>
+      <br>
+      <input class="wrap-input100" type="text" name="codigo" placeholder="Codigo" [(ngModel)]="usuarioData.slpCode">
+      <br>
+
+    </form>
+  </div>
+  <!--Footer-->
+  <div class="modal-footer">
+    <input type="submit" class="login100-form-btn" value="Crear">
+    <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>

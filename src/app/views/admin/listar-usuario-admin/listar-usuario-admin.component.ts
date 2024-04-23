@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AndService } from 'src/app/services/api/and.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { AndService } from 'src/app/services/api/and.service';
 })
 export class ListarUsuarioAdminComponent implements OnInit {
 
+
+  
   listaUsuario: any = [];
   usuarioData = {
     username: '',
@@ -17,7 +20,7 @@ export class ListarUsuarioAdminComponent implements OnInit {
     slpCode:''
   }
 
-  constructor(private and:AndService){}
+  constructor(private and:AndService,private modal:NgbModal){}
 
   ngOnInit(): void {
     this.rellenarUsuarios();
@@ -49,5 +52,8 @@ export class ListarUsuarioAdminComponent implements OnInit {
     this.usuarioData.slpCode = "";
 }
 
+openModal(modal) {
+  this.modal.open(modal);
+}
 
 }

@@ -80,6 +80,7 @@ export class SubirOrdenAdminComponent implements OnInit {
     this.and.obtenerBancos().subscribe(
       (data: any) => {
         this.listaBancos = data;
+        this.ordenRequest.bancoNombre = this.listaBancos[0].acctName;
       }
     );
   }

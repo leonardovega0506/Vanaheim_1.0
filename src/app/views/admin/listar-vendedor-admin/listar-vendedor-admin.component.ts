@@ -1,58 +1,120 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { from } from 'rxjs';
 import { AndService } from 'src/app/services/api/and.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-vendedor-admin',
   templateUrl: './listar-vendedor-admin.component.html',
   styleUrls: ['./listar-vendedor-admin.component.css']
 })
-export class ListarVendedorAdminComponent implements OnInit{
+export class ListarVendedorAdminComponent implements OnInit {
 
-    //Paginacion
-    page:number=0;
-    pages:number=0;
-    pageActual:number=0;
-    currentPage:number=1;
-    sortDir:boolean = true;
-    cantidad:any=10;
+  //Paginacion
+  page: number = 0;
+  paginationPage = 1;
+  pages = [];
+  pageActual: number = 0;
+  currentPage: number = 1;
+  sortDir: boolean = true;
+  cantidad: any = 10;
 
-    //Atributos
-    listaVendedores:any=[];
-    slpCode:any;
-    slpName:any;
+  //Atributos
+  listaVendedores: any = [];
+  slpCode: any;
+  slpName: any;
 
-  constructor(private and:AndService,private router:Router){}
+  constructor(private and: AndService, private router: Router, private modal: NgbModal) { }
 
   ngOnInit(): void {
-    this.listarVendedores(this.page,this.cantidad,"idVendedor","asc");
+    this.listarVendedores(this.page, this.cantidad, "idVendedor", "asc");
   }
 
-  buscarVendedorBySlpCode(){
+  buscarVendedorBySlpCode() {
     console.log(this.slpCode);
-    this.and.obtenerVendedorBySlpCode(this.slpCode).subscribe(
-      (data:any)=>{
-        this.router.navigate(['/admin/vendedores/'+data.response.idVendedor]);
+
+    Swal.fire({
+      title: 'Buscando',
+      text: 'Por favor espere',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      imageUrl: '/assets/esperando.png',
+      imageWidth: 450,
+      imageHeight: 400,
+      imageAlt: 'Buscando'
+    });
+    from(this.and.obtenerVendedorBySlpCode(this.slpCode)).subscribe(
+      (data: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Exito',
+          text: 'Exito al Buscar',
+          showConfirmButton: true,
+          confirmButtonColor: '#3A68DE',
+          timer: 2500,
+          customClass: {
+            title: 'my-custom-title',
+          }
+        });
+        this.router.navigate(['/admin/vendedores/' + data.response.idVendedor]);
+        this.modal.dismissAll();
+      },
+      (error) => {
+        console.log(error);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al ingresar',
+          showConfirmButton: true,
+          confirmButtonColor: '#3AD0DE',
+          timer: 3000
+        });
       }
     );
   }
 
-  listarVendedores(page: number, cantidad: any, orderBy: string, sortDir: string){
-    this.and.obtenerVendedores(orderBy,page,cantidad,sortDir).subscribe(
-      (data:any)=>{
+
+  openModal(modal) {
+    this.modal.open(modal);
+  }
+
+
+  listarVendedores(page: number, cantidad: any, orderBy: string, sortDir: string) {
+    this.and.obtenerVendedores(orderBy, page, cantidad, sortDir).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.listaVendedores = data.content;
+        this.pages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+        this.currentPage = data.numPage;
+      }
+    );
+  }
+
+  listarVendedoresByCardName() {
+    this.and.obtenerVendedoresByName(this.slpName, "idVendedor", this.page, this.cantidad, "asc").subscribe(
+      (data: any) => {
         console.log(data);
         this.listaVendedores = data.content;
       }
     );
   }
 
-  listarVendedoresByCardName(){
-    this.and.obtenerVendedoresByName(this.slpName,"idVendedor",this.page,this.cantidad,"asc").subscribe(
-      (data:any)=>{
-        console.log(data);
-        this.listaVendedores = data.content;
-      }
-    );
+  changePage(page: number) {
+    if (page === -1 && this.paginationPage > 1) {
+      this.paginationPage--;
+      this.listarVendedores(this.paginationPage - 1, this.cantidad, "idVendedor", "asc");
+    } else if (page === +1 && this.paginationPage < this.pages.length) {
+      this.paginationPage++;
+      this.listarVendedores(this.paginationPage - 1, this.cantidad, "idVendedor", "asc");
+    } else if (page >= 1 && page <= this.pages.length) {
+      this.paginationPage = page;
+      this.listarVendedores(this.paginationPage - 1, this.cantidad, "idVendedor", "asc");
+    }
   }
+
 
 }

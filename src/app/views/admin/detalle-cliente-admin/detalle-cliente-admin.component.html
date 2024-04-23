@@ -1,36 +1,56 @@
-<h1>Detalles</h1>
-<h2>Nombre</h2>
-<h3>{{cliente?.cardName}}</h3>
-<h2>Codigo</h2>
-<h3>{{cliente?.cardCode}}</h3>
-<h2>Telefono</h2>
-<h3>{{cliente?.phone1}}</h3>
-<h2>Balance</h2>
-<h3>{{cliente?.balance}}</h3>
-<h2>Grupo</h2>
-<h2>{{cliente?.groupNum}}</h2>
-<h2>RFC</h2>
-<h3>{{cliente?.licTradNum}}</h3>
-
-<button (click)="obtenerOrdenesCliente()">Traer ordenes</button>
-
-<table>
-    <thead>
-        <th>#</th>
-        <th>Codigo</th>
-        <th># Entrada</th>
-        <th>Fecha</th>
-        <th>Total</th>
-        <th>Estatus</th>
-        <th>Acción</th>
-    </thead>
-    <tbody *ngFor="let orden of listaOrdenes">
-        <td>{{orden.idOrdenVenta}}</td>
-        <td>{{orden.docNum}}</td>
-        <td>{{orden.docEntry}}</td>
-        <td>{{orden.docDate}}</td>
-        <td>{{orden.docTotal}}</td>
-        <td>{{orden.u_estatusOV}}</td>
-        <td><a [routerLink]="'/admin/ordenes/'+orden.idOrdenVenta">Detalles</a></td>
-    </tbody>
-</table>
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+  <div class="card p-4">
+    <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary">
+        <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> <span
+        class="name mt-3">{{cliente?.cardName}}</span> <span class="idd">{{cliente?.cardCode}}</span>
+      <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span
+          class="idd1">{{cliente?.licTradNum}}</span> <span><i class="fa fa-copy"></i></span> </div>
+      <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span
+          class="number">{{cliente?.balance | currency}}<span class="follow"></span></span> </div>
+      <div class=" d-flex mt-2"> <button class="btn1 btn-dark" (click)="obtenerOrdenesCliente()">Ver ordenes</button>
+      </div>
+      <div class="text mt-3"> <span>{{cliente?.phone1}}</span> </div>
+      <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i
+            class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i
+            class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>
+      <div class=" px-2 rounded mt-4 date "> <span class="join">{{cliente?.groupNum}}</span> </div>
+    </div>
+  </div>
+</div>
+<div class="content" *ngIf="tabla">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <table class="table custom-table">
+          <thead style="border-radius: 50px;">
+            <tr>
+                <th>#</th>
+                <th>Codigo</th>
+                <th># Entrada</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estatus</th>
+                <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let orden of listaOrdenes">
+            <td>{{orden.idOrdenVenta}}</td>
+            <td>{{orden.docNum}}</td>
+            <td>{{orden.docEntry}}</td>
+            <td>{{orden.docDate}}</td>
+            <td>{{orden.docTotal}}</td>
+            <td>{{orden.u_estatusOV}}</td>
+            <td><a [routerLink]="'/admin/ordenes/'+orden.idOrdenVenta">Detalles</a></td>
+          </tbody>
+          <tfoot>
+            <nav aria-label="Page navigation example" *ngIf="listaOrdenes.length >= 10">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a></li>
+                <li class="page-item" *ngFor="let page of pages"><a class="page-link"(click)="changePage(page)">{{page}}</a></li>
+                <li class="page-item"><a class="page-link"  (click)="changePage(+1)">Next</a></li>
+              </ul>
+            </nav>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>

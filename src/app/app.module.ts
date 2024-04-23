@@ -25,20 +25,27 @@ import { TopbarOrdenVendedorComponent } from './views/vendedor/topbar-orden-vend
 import { DashboardVendedorComponent } from './views/vendedor/dashboard-vendedor/dashboard-vendedor.component';
 import { TopbarAdminComponent } from './views/admin/topbar-admin/topbar-admin.component';
 import { DashboardAdminComponent } from './views/admin/dashboard-admin/dashboard-admin.component';
-
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { DashboardOrdenesAdminComponent } from './views/admin/dashboard-ordenes-admin/dashboard-ordenes-admin.component';
-import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
-import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
-import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { authInterceptorProviders } from './services/util/auth.interceptor';
 import { ListaOrdenRequestFinanzasComponent } from './views/finanzas/lista-orden-request-finanzas/lista-orden-request-finanzas.component';
 import { DetalleOrdenRequestFinanzasComponent } from './views/finanzas/detalle-orden-request-finanzas/detalle-orden-request-finanzas.component';
 import { ListarOrdenesRequestVendedorComponent } from './views/vendedor/listar-ordenes-request-vendedor/listar-ordenes-request-vendedor.component';
 import { DetalleOrdenRequestVendedorComponent } from './views/vendedor/detalle-orden-request-vendedor/detalle-orden-request-vendedor.component';
 import { ListarUsuarioAdminComponent } from './views/admin/listar-usuario-admin/listar-usuario-admin.component';
+import { DashboardOrdenesAdminComponent } from './views/admin/dashboard-ordenes-admin/dashboard-ordenes-admin.component';
+import { ListarOrdenRequestAdminComponent } from './views/admin/listar-orden-request-admin/listar-orden-request-admin.component';
+import { DetalleOrdenRequestAdminComponent } from './views/admin/detalle-orden-request-admin/detalle-orden-request-admin.component';
+import { SubirOrdenAdminComponent } from './views/admin/subir-orden-admin/subir-orden-admin.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { DatePipe,LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { authInterceptorProviders } from './services/util/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,10 +86,16 @@ import { ListarUsuarioAdminComponent } from './views/admin/listar-usuario-admin/
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [authInterceptorProviders,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    { provide: LocationStrategy, useClass: HashLocationStrategy },DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
