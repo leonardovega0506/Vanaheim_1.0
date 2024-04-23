@@ -29,6 +29,7 @@ import { ListarUsuarioAdminComponent } from './views/admin/listar-usuario-admin/
 import { AdminGuard } from './services/guards/admin/admin.guard';
 import { VentasGuard } from './services/guards/ventas/ventas.guard';
 import { FinazasGuard } from './services/guards/finanzas/finanzas.guard';
+import { DetalleOrdenFinanzasComponent } from './views/finanzas/detalle-orden-finanzas/detalle-orden-finanzas.component';
 
 const routes: Routes = [
   {path:'',component:LoginVanaheimComponent},
@@ -48,7 +49,7 @@ const routes: Routes = [
     {path:'clientes',component:ListarClienteFinanzasComponent},
     {path:'clientes/:id',component:DetalleClienteFinanzasComponent},
     {path:'ordenes/sap',component:ListarOrdenFinanzasComponent},
-    {path:'ordenes/sap/:id',component:DetalleClienteFinanzasComponent},
+    {path:'ordenes/sap/:id',component:DetalleOrdenFinanzasComponent},
     {path:'ordenes/request',component:ListaOrdenRequestFinanzasComponent},
     {path:'ordenes/request/:id',component:DetalleOrdenRequestFinanzasComponent}
   ]},

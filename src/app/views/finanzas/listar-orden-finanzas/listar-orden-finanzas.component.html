@@ -1,26 +1,104 @@
-<input type="text" name="docNum" placeholder="Numero de orden" [(ngModel)]="docNum">
-<button (click)="buscarOrdenByDocNum()">Buscar</button>
-<br>
-<input type="text" name="ref1" placeholder="Numero de factura" [(ngModel)]="ref1">
-<button (click)="buscarOrdenByFactura()">Buscar Por factura</button>
-<br><br>
-<input type="text" name="fecha" [(ngModel)]="fecha" placeholder="Fecha">
-<button (click)="listarOrdenesByFecha()">Buscar por fecha</button>
-<table>
-    <thead>
-        <th>Entrada</th>
-        <th>Numero</th>
-        <th>Fecha</th>
-        <th>Total</th>
-        <th>Estatus</th>
-        <th>Accion</th>
-    </thead>
-    <tbody *ngFor="let orden of listaOrdenes">
-        <td>{{orden.docEntry}}</td>
-        <td>{{orden.docNum}}</td>
-        <td>{{orden.docDate}}</td>
-        <td>{{orden.docTotal}}</td>
-        <td>{{orden.u_estatusOV}}</td>
-        <td><a [routerLink]="'/finanzas/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
-    </tbody>
-</table>
+<div>
+    <h1>Ordenes SAP</h1>
+    <button class="login100-form-btn" type="submit" (click)="openModal(buscarOrden)">
+      Buscar Orden
+    </button>
+    <button class="login100-form-btn" type="submit" (click)="openModal(buscarFactura)">
+      Buscar Orden por factura
+    </button>
+    <div class="content">
+      <div class="container">
+        <div class="table-responsive custom-table-responsive">
+          <div class="position-relative">
+            <div class="px-2">
+              <span>Filters <i class="fa fa-angle-down"></i></span>
+              <i class="fa fa-ellipsis-h ms-3"></i>
+            </div>
+            <mat-form-field>
+              <mat-label>Buscar por fecha</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="fecha" class="input-data"
+                style="background-color: transparent;    font-family: ZTGatha-SemiBold;" name="fechaBusqueda">
+              <mat-datepicker-toggle matIconSuffix [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button (click)="listarOrdenesByFecha()" class="btn btn-outline-primary" style="font-family: ZTGatha-SemiBold; border-radius: 25px;">Buscar por fecha</button>
+          </div>
+          <table class="table custom-table">
+            <thead style="border-radius: 50px;">
+              <tr>
+                <th scope="col" width="5%">Entrada</th>
+                <th>Numero</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estatus</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let orden of listaOrdenes">
+              <td>{{orden.docEntry}}</td>
+              <td>{{orden.docNum}}</td>
+              <td>{{orden.docDate}}</td>
+              <td>{{orden.docTotal}}</td>
+              <td>{{orden.u_estatusOV}}</td>
+              <td><a [routerLink]="'/finanzas/ordenes/sap/'+orden.idOrdenVenta">Detalles</a></td>
+            </tbody>
+            <tfoot>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" (click)="changePage(-1)" *ngIf="currentPage!=0">Previous</a>
+                  </li>
+                  <li class="page-item" *ngFor="let page of pages"><a class="page-link"
+                      (click)="changePage(page)">{{page}}</a></li>
+                  <li class="page-item"><a class="page-link" (click)="changePage(+1)">Next</a></li>
+                </ul>
+              </nav>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Ventana modal buscar cliente-->
+  <ng-template #buscarOrden let-modal>
+    <!--Cabecera-->
+    <div class="modal-header fondo-cabecera">
+      <h4 class="modal-title">Buscar cliente por código</h4>
+      <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!--Cuerpo-->
+    <div class="modal-body fondo-modal">
+      <p>Ingrese el codigo a buscar</p>
+      <input class="wrap-input100 " type="text" name="cardCode" placeholder="Codigo">
+    </div>
+    <!--Footer-->
+    <div class="modal-footer">
+      <button type="submit" class="login100-form-btn" (click)="buscarOrdenByDocNum()">Buscar</button>
+      <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+    </div>
+  </ng-template>
+  
+  <!--Ventana modal buscar cliente-->
+  <ng-template #buscarFactura let-modal>
+    <!--Cabecera-->
+    <div class="modal-header fondo-cabecera">
+      <h4 class="modal-title">Buscar cliente por código</h4>
+      <button class="btn close" aria-label="close" type="button" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!--Cuerpo-->
+    <div class="modal-body fondo-modal">
+      <p>Ingresela facturar</p>
+      <input class="wrap-input100 " type="text" name="cardCode" placeholder="Factura">
+    </div>
+    <!--Footer-->
+    <div class="modal-footer">
+      <button type="submit" class="login100-form-btn" (click)="buscarOrdenByFactura()">Buscar</button>
+      <button type="button" class="btnCerrar-form-btn" (click)="modal.close()">Cerrar</button>
+    </div>
+  </ng-template>
+  
